@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Network
 
 typealias JSONObject = [String: Any]
 
@@ -26,36 +27,48 @@ class API {
     
     
     static func fetch(_ endpoint: Endpoint, completionHandler: @escaping (Error?, JSONObject?) -> Void) {
-            guard let url = URL(string: endpoint.url) else {
-                completionHandler(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"]), nil)
-                return
-            }
-            
-            var request = URLRequest(url: url)
-            request.httpMethod = endpoint.method
-            
-            let task = URLSession.shared.dataTask(with: request) { data, response, error in
-                if let error = error {
-                    completionHandler(error, nil)
-                    return
-                }
-                
-                guard let data = data else {
-                    completionHandler(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "No data returned"]), nil)
-                    return
-                }
-                
-                do {
-                    if let jsonObject = try JSONSerialization.jsonObject(with: data, options: []) as? JSONObject {
-                        completionHandler(nil, jsonObject)
-                    } else {
-                        completionHandler(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid JSON format"]), nil)
-                    }
-                } catch {
-                    completionHandler(error, nil)
-                }
-            }
-            
-            task.resume()
+        guard let url = URL(string: endpoint.url) else {
+            completionHandler(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"]), nil)
+            return
         }
+
+        let monitor = NWPathMonitor()
+        monitor.pathUpdateHandler = { path in
+            if path.status == .satisfied {
+                var request = URLRequest(url: url)
+                request.httpMethod = endpoint.method
+
+                let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                    if let error = error {
+                        completionHandler(error, nil)
+                        return
+                    }
+
+                    guard let data = data else {
+                        completionHandler(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "No data returned"]), nil)
+                        return
+                    }
+
+                    do {
+                        if let jsonObject = try JSONSerialization.jsonObject(with: data, options: []) as? JSONObject {
+                            completionHandler(nil, jsonObject)
+                        } else {
+                            completionHandler(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid JSON format"]), nil)
+                        }
+                    } catch {
+                        completionHandler(error, nil)
+                    }
+                }
+
+                task.resume()
+            } else {
+                completionHandler(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "No internet connection"]), nil)
+            }
+            monitor.cancel()
+        }
+
+        let queue = DispatchQueue(label: "NetworkMonitor")
+        monitor.start(queue: queue)
+    }
+
 }

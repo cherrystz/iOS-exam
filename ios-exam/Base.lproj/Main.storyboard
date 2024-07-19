@@ -19,10 +19,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d2b-b4-cBl">
-                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Itl-yz-qLU">
                                 <rect key="frame" x="0.0" y="59" width="393" height="759"/>
                                 <subviews>
@@ -249,6 +245,40 @@
                                 <viewLayoutGuide key="contentLayoutGuide" id="OaE-5j-WYr"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="Zfe-pY-4m2"/>
                             </scrollView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d2b-b4-cBl">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="NE0-z9-AeB">
+                                        <rect key="frame" x="21" y="282" width="351" height="288.33333333333326"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Idc-76-wRN" customClass="LottieAnimationView" customModule="Lottie">
+                                                <rect key="frame" x="55.666666666666686" y="0.0" width="240" height="240"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="240" id="bGN-Gn-6UG"/>
+                                                    <constraint firstAttribute="width" constant="240" id="qXt-5D-j45"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="animationName" value="NoInternet"/>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5M7-Pa-nwC">
+                                                <rect key="frame" x="0.0" y="248.00000000000003" width="351" height="40.333333333333343"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="6" maxY="0.0"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" image="arrow.clockwise" catalog="system" title="No internet connection. Please try again"/>
+                                                <connections>
+                                                    <action selector="retryButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="65Z-ru-aC9"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="NE0-z9-AeB" firstAttribute="centerY" secondItem="d2b-b4-cBl" secondAttribute="centerY" id="HrC-kT-UfH"/>
+                                    <constraint firstItem="NE0-z9-AeB" firstAttribute="centerX" secondItem="d2b-b4-cBl" secondAttribute="centerX" id="IfL-sF-oJ6"/>
+                                </constraints>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IMO-E5-alH" customClass="RoundedButtonWithShadow" customModule="ios_exam" customModuleProvider="target">
                                 <rect key="frame" x="321" y="746" width="56" height="56"/>
                                 <color key="backgroundColor" name="toggleAppearanceColor"/>
@@ -289,6 +319,9 @@
                     <connections>
                         <outlet property="eventSingleCardCollectionView" destination="H8D-rZ-9hd" id="fKg-Lj-heW"/>
                         <outlet property="firstCarouselCollectionView" destination="PWO-eK-Vbe" id="dpG-aw-0mc"/>
+                        <outlet property="noInternetConnectionAnimationView" destination="Idc-76-wRN" id="X3y-mF-FgC"/>
+                        <outlet property="noInternetConnectionView" destination="d2b-b4-cBl" id="aVF-lP-Sj7"/>
+                        <outlet property="retryButton" destination="5M7-Pa-nwC" id="W2P-sf-w6T"/>
                         <outlet property="scrollView" destination="Itl-yz-qLU" id="3gh-LG-fuu"/>
                         <outlet property="secondCarouselCollectionView" destination="0Re-IM-MMV" id="iWz-wk-Mew"/>
                     </connections>
@@ -306,21 +339,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ofI-C7-yjj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="955" y="-187"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="PM0-DM-TzS">
-            <objects>
-                <viewController id="cVa-VZ-foR" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Zh2-0F-IYg">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="kdJ-hC-hGh"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="QDI-ij-fbl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="955" y="279"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="sMJ-yO-Fje">
@@ -340,6 +358,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="arrow.clockwise" catalog="system" width="113" height="128"/>
         <image name="placeholder" width="594" height="596"/>
         <image name="toggleAppearance" width="256" height="256"/>
         <namedColor name="eventSingleCardColor">

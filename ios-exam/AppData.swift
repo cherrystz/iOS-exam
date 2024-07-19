@@ -19,12 +19,13 @@ class AppData {
             if let error = error {
                 // Handle error
                 AppData.error = error
-                return
             }
-                guard let code = json?["code"] as? Int,
-                  let responseObject = json?["responseObject"] as? JSONObject,
-                  let contentShelfs = responseObject["contentShelfs"] as? [JSONObject],
-                  code == 200 else {
+            guard let code = json?["code"] as? Int,
+              let responseObject = json?["responseObject"] as? JSONObject,
+              let contentShelfs = responseObject["contentShelfs"] as? [JSONObject],
+              code == 200 else {
+                print(AppData.error)
+                NotificationCenter.default.post(name: .dataFetched, object: nil)
                 return
             }
             

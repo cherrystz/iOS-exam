@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Lottie
 
 class HomeViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
@@ -42,7 +43,8 @@ class HomeViewController: UIViewController, UICollectionViewDelegateFlowLayout, 
     
     @objc private func refreshData() {
         // Reload your data here
-
+        AppData.fetchData()
+        
         // Simulate a network call or data processing
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             // End refreshing
@@ -51,21 +53,33 @@ class HomeViewController: UIViewController, UICollectionViewDelegateFlowLayout, 
     }
     
     @objc func handleDataFetched() {
-        if let firstCarousels = AppData.carouselsJson.first,
-           let firstCarouselsCount = (firstCarousels["items"] as? [JSONObject])?.count,
-           let secondCarousels = AppData.carouselsJson.last,
-           let secondCarouselsCount = (secondCarousels["items"] as? [JSONObject])?.count
-        {
-            self.firstCarousels = firstCarousels
-            self.firstCarouselsCount = firstCarouselsCount
-            self.eventSingleCards = AppData.eventSingleCardsJson
-            self.secondCarousels = secondCarousels
-            self.secondCarouselsCount = secondCarouselsCount
-            
+        DispatchQueue.main.async {
+            self.refreshControl.endRefreshing()
+        }
+        
+        if let _ = AppData.error {
+            showNoInternetConnection()
+        } else {
             DispatchQueue.main.async {
-                self.firstCarouselCollectionView.reloadData()
-                self.secondCarouselCollectionView.reloadData()
-                self.eventSingleCardCollectionView.reloadData()
+                self.scrollView.isHidden = false
+                self.noInternetConnectionView.isHidden = true
+            }
+            if let firstCarousels = AppData.carouselsJson.first,
+               let firstCarouselsCount = (firstCarousels["items"] as? [JSONObject])?.count,
+               let secondCarousels = AppData.carouselsJson.last,
+               let secondCarouselsCount = (secondCarousels["items"] as? [JSONObject])?.count
+            {
+                self.firstCarousels = firstCarousels
+                self.firstCarouselsCount = firstCarouselsCount
+                self.eventSingleCards = AppData.eventSingleCardsJson
+                self.secondCarousels = secondCarousels
+                self.secondCarouselsCount = secondCarouselsCount
+                
+                DispatchQueue.main.async {
+                    self.firstCarouselCollectionView.reloadData()
+                    self.secondCarouselCollectionView.reloadData()
+                    self.eventSingleCardCollectionView.reloadData()
+                }
             }
         }
     }
@@ -156,13 +170,35 @@ class HomeViewController: UIViewController, UICollectionViewDelegateFlowLayout, 
         }
         
     }
-
-
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "embedPageViewController",
-//           let pageViewController = segue.destination as? ImageSlidePageViewController {
-//            
-//        }
-//    }
+    
+    // Internet works
+    
+    // No Internet Connection
+    @IBOutlet weak var noInternetConnectionView: UIView!
+    @IBOutlet var noInternetConnectionAnimationView: LottieAnimationView!
+    @IBOutlet weak var retryButton: UIButton!
+    func showNoInternetConnection() {
+        DispatchQueue.main.async {
+            self.scrollView.isHidden = true
+            self.noInternetConnectionView.isHidden = false
+            self.noInternetConnectionAnimationView!.contentMode = .scaleAspectFit
+            self.noInternetConnectionAnimationView!.loopMode = .loop
+            self.noInternetConnectionAnimationView!.animationSpeed = 0.5
+            self.noInternetConnectionAnimationView!.play()
+            self.retryButton.titleLabel?.text = "No internet connection. Please try again"
+            self.retryButton.isEnabled = true
+        }
+    }
+    
+    @IBAction func retryButton(_ sender: UIButton) {
+        DispatchQueue.main.async {
+            self.noInternetConnectionAnimationView!.loopMode = .loop
+            self.noInternetConnectionAnimationView!.animationSpeed = 0.5
+            self.noInternetConnectionAnimationView!.play()
+            self.retryButton.titleLabel?.text = "Refreshing"
+            self.retryButton.isEnabled = false
+        }
+        self.refreshData()
+    }
     
 }
