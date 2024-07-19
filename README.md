@@ -21,7 +21,7 @@ This project is an iOS application developed for exam purposes. It demonstrates 
 
 1. **Clone the repository:**
 
-   ```sh
+ ```sh
    git clone https://github.com/yourusername/iOS-exam.git
    cd iOS-exam
    ```
@@ -31,7 +31,7 @@ This project is an iOS application developed for exam purposes. It demonstrates 
 
 Make sure you have CocoaPods installed. If not, you can install it using the following command:
 
-  ```sh
+   ```sh
   sudo gem install cocoapods
   ```
 
@@ -60,3 +60,9 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## Contact
 
 If you have any questions, feel free to contact me at [pharuetthapoljp@gmail.com].
+
+
+
+
+
+
