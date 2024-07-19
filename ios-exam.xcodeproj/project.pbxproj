@@ -124,6 +124,45 @@
 			path = Lottie;
 			sourceTree = "<group>";
 		};
+		236A4C7B2C4A019B00EF96F3 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2385F6012C499DAA00F8F76D /* HomeViewController.swift */,
+				2385F62F2C49BC0B00F8F76D /* ImageSlidePageViewController.swift */,
+				2385F6312C49BC7D00F8F76D /* ImageViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		236A4C7C2C4A01AD00EF96F3 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				2385F6352C49C80A00F8F76D /* Notification.swift */,
+				236A4C6A2C49E45C00EF96F3 /* ViewController.swift */,
+				236A4C6E2C49E93200EF96F3 /* RoundedButtonWithShadow.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		236A4C7D2C4A01B500EF96F3 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				2385F6332C49BD3800F8F76D /* ImageLoader.swift */,
+				2385F6372C49C88C00F8F76D /* AppData.swift */,
+				2385F62D2C499E3600F8F76D /* API.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		236A4C7E2C4A01D200EF96F3 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				2385F6392C49CEB000F8F76D /* CarouselCollectionViewCell.swift */,
+				236A4C682C49DFF500EF96F3 /* EventSingleCardCollectionViewCell.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		2385F5F12C499DAA00F8F76D = {
 			isa = PBXGroup;
 			children = (
@@ -152,21 +191,14 @@
 				236A4C702C49F1E100EF96F3 /* Lottie */,
 				2385F5FD2C499DAA00F8F76D /* AppDelegate.swift */,
 				2385F5FF2C499DAA00F8F76D /* SceneDelegate.swift */,
-				2385F6352C49C80A00F8F76D /* Notification.swift */,
-				2385F6372C49C88C00F8F76D /* AppData.swift */,
-				2385F6012C499DAA00F8F76D /* HomeViewController.swift */,
-				2385F62F2C49BC0B00F8F76D /* ImageSlidePageViewController.swift */,
-				2385F6312C49BC7D00F8F76D /* ImageViewController.swift */,
-				2385F6332C49BD3800F8F76D /* ImageLoader.swift */,
+				236A4C7C2C4A01AD00EF96F3 /* Extensions */,
+				236A4C7D2C4A01B500EF96F3 /* Services */,
+				236A4C7B2C4A019B00EF96F3 /* ViewController */,
+				236A4C7E2C4A01D200EF96F3 /* Components */,
 				2385F6032C499DAA00F8F76D /* Main.storyboard */,
-				2385F6392C49CEB000F8F76D /* CarouselCollectionViewCell.swift */,
-				236A4C682C49DFF500EF96F3 /* EventSingleCardCollectionViewCell.swift */,
-				2385F62D2C499E3600F8F76D /* API.swift */,
-				236A4C6A2C49E45C00EF96F3 /* ViewController.swift */,
 				2385F6062C499DAB00F8F76D /* Assets.xcassets */,
 				2385F6082C499DAB00F8F76D /* LaunchScreen.storyboard */,
 				2385F60B2C499DAB00F8F76D /* Info.plist */,
-				236A4C6E2C49E93200EF96F3 /* RoundedButtonWithShadow.swift */,
 			);
 			path = "ios-exam";
 			sourceTree = "<group>";
