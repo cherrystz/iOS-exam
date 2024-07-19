@@ -7,13 +7,15 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
+extension UIViewController {
+    @IBAction func toggleAppearance(sender: UIButton) {
+        guard let window = view.window else { return }
+        
+        let newStyle: UIUserInterfaceStyle = window.overrideUserInterfaceStyle == .dark ? .light : .dark
+        
+        // Use a transition animation
+        UIView.transition(with: window, duration: 0.3, options: .transitionCrossDissolve, animations: {
+            window.overrideUserInterfaceStyle = newStyle
+        }, completion: nil)
     }
-
-
 }
-

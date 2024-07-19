@@ -6,7 +6,7 @@ target 'ios-exam' do
   use_frameworks!
 
   # Pods for ion-exam
-  pod 'lottie-ios'
+  # pod 'lottie-ios'
 
   target 'ios-examTests' do
     inherit! :search_paths
